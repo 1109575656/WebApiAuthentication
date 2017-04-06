@@ -11,7 +11,7 @@ namespace WebApiAuthentication.Core
     {
         public void Dispose()
         {
-            
+
         }
 
         public void Init(HttpApplication context)
@@ -26,17 +26,18 @@ namespace WebApiAuthentication.Core
         private void Context_AuthenticateRequest(object sender, EventArgs e)
         {
             var app = sender as HttpApplication;
-            if (app == null) {
+            if (app == null)
+            {
                 app.Context.User = null;
                 return;
             }
-            var cookie = HttpContext.Current.Request.Headers.GetValues("Cookie"); //初使化并设置Cookie的名称
-            if (cookie == null )
+            var cookie = HttpContext.Current.Request.Headers.GetValues("Cookie");
+            if (cookie == null)
             {
                 app.Context.User = new MyPrincipal("");
                 return;
             }
-            if (cookie.Count() <1 )
+            if (cookie.Count() < 1)
             {
                 app.Context.User = new MyPrincipal("");
                 return;
@@ -44,8 +45,11 @@ namespace WebApiAuthentication.Core
             MyFormsAuthenticationTicket ticket;
             try
             {
-                 string decryptStr= MyFormsAuthentication.DecryptDES(cookie[0].Substring(cookie[0].IndexOf('=')+1),"11111111");
-                 ticket = JsonConvert.DeserializeObject<MyFormsAuthenticationTicket>(decryptStr);
+                //获取cookie值的另一种方式，特殊符号会被省略
+                //var sdd = Request.Headers.GetCookies(FormsAuthentication.FormsCookieName).FirstOrDefault();
+                //var value=sdd[FormsAuthentication.FormsCookieName].Value;
+                string decryptStr = MyFormsAuthentication.DecryptDES(cookie[0].Substring(cookie[0].IndexOf('=') + 1), "11111111");
+                ticket = JsonConvert.DeserializeObject<MyFormsAuthenticationTicket>(decryptStr);
             }
             catch (Exception)
             {
