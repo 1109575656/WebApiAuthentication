@@ -20,7 +20,7 @@ namespace WebApiAuthentication.Controllers
         public IHttpActionResult SignIn()
         {
             MyFormsAuthenticationTicket ticket = new MyFormsAuthenticationTicket(
-         2, new Random().Next().ToString(), DateTime.Now, DateTime.Now.AddDays(1), true, "admin");
+         2, new Random().Next().ToString(), DateTime.Now, DateTime.Now.AddDays(1), true, "admin,张三");
             string encryptStr = MyFormsAuthentication.EncryptDES(JsonConvert.SerializeObject(ticket), "11111111");
             HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptStr);
             //cookie.HttpOnly = true;
@@ -52,6 +52,28 @@ namespace WebApiAuthentication.Controllers
         [HttpGet]
         [Authorize]
         public IHttpActionResult TestSuccess()
+        {
+            return Ok("访问成功");
+        }
+        /// <summary>
+        /// 测试指定角色
+        /// </summary>
+        /// <returns></returns>
+        [Route("TestRoles")]
+        [HttpGet]
+        [Authorize(Roles="找刘")]
+        public IHttpActionResult TestRoles()
+        {
+            return Ok("访问成功");
+        }
+        /// <summary>
+        /// 测试指定角色
+        /// </summary>
+        /// <returns></returns>
+        [Route("TestZhangsan")]
+        [HttpGet]
+        [Authorize(Roles = "张三")]
+        public IHttpActionResult TestZhangsan()
         {
             return Ok("访问成功");
         }

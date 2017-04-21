@@ -79,3 +79,4 @@ G:\WebApiAuthentication\WebApiAuthentication\bin\System.Web.Http.xml
 G:\WebApiAuthentication\WebApiAuthentication\bin\System.Web.Http.WebHost.xml
 G:\WebApiAuthentication\WebApiAuthentication\obj\Debug\WebApiAuthentication.dll
 G:\WebApiAuthentication\WebApiAuthentication\obj\Debug\WebApiAuthentication.pdb
+G:\WebApiAuthentication\WebApiAuthentication\obj\Debug\WebApiAuthentication.csprojResolveAssemblyReference.cache

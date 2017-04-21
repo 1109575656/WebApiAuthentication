@@ -34,12 +34,12 @@ namespace WebApiAuthentication.Core
             var cookie = HttpContext.Current.Request.Headers.GetValues("Cookie");
             if (cookie == null)
             {
-                app.Context.User = new MyPrincipal("");
+                app.Context.User = new MyPrincipal("",null);
                 return;
             }
             if (cookie.Count() < 1)
             {
-                app.Context.User = new MyPrincipal("");
+                app.Context.User = new MyPrincipal("", null);
                 return;
             }
             MyFormsAuthenticationTicket ticket;
@@ -53,15 +53,15 @@ namespace WebApiAuthentication.Core
             }
             catch (Exception)
             {
-                app.Context.User = new MyPrincipal("");
+                app.Context.User = new MyPrincipal("", null);
                 return;
             }
             if (ticket == null)
             {
-                app.Context.User = new MyPrincipal("");
+                app.Context.User = new MyPrincipal("", null);
                 return;
             }
-            app.Context.User = new MyPrincipal(ticket.Name);
+            app.Context.User = new MyPrincipal(ticket.Name,ticket.UserData);
         }
     }
 }
